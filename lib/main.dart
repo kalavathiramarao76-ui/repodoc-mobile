@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'screens/splash_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
   runApp(const RepoDocApp());
 }
-
 class RepoDocApp extends StatelessWidget {
   const RepoDocApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,14 +43,11 @@ class RepoDocApp extends StatelessWidget {
           color: const Color(0xFF111A15),
           elevation: 4,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        ),
         navigationBarTheme: NavigationBarThemeData(
           backgroundColor: const Color(0xFF0D1410),
           indicatorColor: const Color(0xFF10B981).withOpacity(0.2),
           labelTextStyle: WidgetStateProperty.all(
             const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, fontFamily: 'monospace'),
-          ),
-        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF10B981),
@@ -59,35 +56,24 @@ class RepoDocApp extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'monospace'),
-          ),
-        ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: const Color(0xFF111A15),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: Color(0xFF1A2F22)),
-          ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Color(0xFF1A2F22)),
-          ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: Color(0xFF10B981), width: 2),
-          ),
           hintStyle: TextStyle(color: Colors.grey[600], fontFamily: 'monospace'),
           prefixIconColor: const Color(0xFF34D399),
-        ),
         textTheme: const TextTheme(
           headlineLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontFamily: 'monospace'),
           headlineMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontFamily: 'monospace'),
           bodyLarge: TextStyle(color: Color(0xFFA7C4B5), fontFamily: 'monospace'),
           bodyMedium: TextStyle(color: Color(0xFF7A9B8A), fontFamily: 'monospace'),
-        ),
         dividerColor: const Color(0xFF1A2F22),
       ),
       home: const SplashScreen(),
     );
   }
-}
